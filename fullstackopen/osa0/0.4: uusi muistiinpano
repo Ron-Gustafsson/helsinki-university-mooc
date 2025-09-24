@@ -4,9 +4,9 @@ sequenceDiagram
 
     Note right of browser: Käyttäjä kirjoittaa tekstin lomake-kenttään ja painaa "Save"
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note\n\(uusi muistiinpano lomakedatana
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browser: 302 Redirect -> \notes
+    server-->>browser: 302 Redirect -> /notes
     deactivate server
 
     Note right of browser: Selain seuraa uudelleenohjausta
@@ -24,7 +24,7 @@ sequenceDiagram
     
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: 200 [{ "content": "Hello Dom! Page manipulating is very easy from console.", "date": "2025-9-24" }\(JSON sisältäen myös uuden muistiinpanon)
+    server-->>browser: 200 [{ "content": "Hello Dom! Page", "date": "2025-09-24" }, ...]
     deactivate server    
 
-    Note right of browser: Selain renderöi päivitetyn listan muistiinpanoista (note)
+    Note right of browser: Selain renderöi päivitetyn listan muistiinpanoista (note) ja näyttää myös uuden muistiinpanon
