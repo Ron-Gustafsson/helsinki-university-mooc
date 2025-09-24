@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: Käyttäjä kirjoittaa tekstin lomake-kenttään ja painaa "Save"
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note\n\(uusi muistiinpano lomakedatana
+    activate server
+    server-->>browser: 302 Redirect -> \notes
+    deactivate server
+
+    Note right of browser: Selain seuraa uudelleenohjausta
+    
+    browser->>server: GET /exampleapp/notes
+    server-->>browser: 200 HTML document
+
+    browser->>server: GET /exampleapp/main.css
+    server-->>browser: 200 CSS file
+
+    browser->>server: GET /exampleapp/main.js
+    server-->>browser: 200 JavaScript file
+    
+    Note right of browser: Selain suorittaa JavaScriptin ja hakee muistiinpanot JSON-tiedostosta palvelimelta
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: 200 [{ "content": "Hello Dom! Page manipulating is very easy from console.", "date": "2025-9-24" }\(JSON sisältäen myös uuden muistiinpanon)
+    deactivate server    
+
+    Note right of browser: Selain renderöi päivitetyn listan muistiinpanoista (note)
