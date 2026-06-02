@@ -3,8 +3,6 @@ const morgan = require('morgan') // ottaa morgan middlewaren käyttöön
 const app = express() 
 const cors = require('cors') // tehtävä 3.9 step 9 otetaan cors käyttöön
 
-const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttujan portti (.env) tai 3001
-
 app.use(cors()) // sallii pyynnöt eri portista
 
 // step 5: JSON-parseri mahdollistaa reguest.body lukemisen POST pyynnöissä
@@ -122,6 +120,8 @@ app.post('/api/persons', (request, response) => {
   // palauttaa uuden henkilön
   response.status(201).json(newPerson)
 })
+
+const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttujan portti (.env) tai 3001
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
