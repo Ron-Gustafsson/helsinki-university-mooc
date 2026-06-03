@@ -1,12 +1,15 @@
 const express = require('express') // ottaa Express käyttöön
 const morgan = require('morgan') // ottaa morgan middlewaren käyttöön
 const app = express() 
-const cors = require('cors') // tehtävä 3.9 step 9 otetaan cors käyttöön
+//const cors = require('cors') // tehtävä 3.9 step 9 otetaan cors käyttöön
 
-app.use(cors()) // sallii pyynnöt eri portista
+//app.use(cors()) // sallii pyynnöt eri portista
 
 // step 5: JSON-parseri mahdollistaa reguest.body lukemisen POST pyynnöissä
 app.use(express.json())
+
+// step 11: tarkistaa frontendin tuotantoversion dist hakemistosta
+app.use(express.static('dist'))
 
 // step 7: Morgan middleware käyttöön
 //app.use(morgan('tiny'))
@@ -126,14 +129,3 @@ const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttuj
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-// step 1 3-4 tuntia
-// step 2 1 tunti
-// step 3 30 min
-// step 4 1 tunti
-// step 5 1 tunti
-// step 6 1 tunti
-// step 7 30 min
-// step 8 1 tunti
-// 3.9 step 9 30 min
-// step 10 
