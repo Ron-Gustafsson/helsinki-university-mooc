@@ -1,5 +1,7 @@
+require('dotenv').config() // dotenv käyttöön -> mahdollistaa .env käytön ilman käynnistyskomennon muokkaamista
 const express = require('express') // ottaa Express käyttöön
 const morgan = require('morgan') // ottaa morgan middlewaren käyttöön
+const Person = require('./models/person')
 const app = express() 
 //const cors = require('cors') // tehtävä 3.9 step 9 otetaan cors käyttöön
 
@@ -48,7 +50,9 @@ let persons = [
 
 // step 1 palauttaa persons taulukon henkilöt json-muodossa, express muuntaa automaattisesti
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(persons => {
+        response.json(persons)
+    })
 })
 
 // step 2 palautetaan persons henkilömäärä ja pyynnön tekohetki
@@ -129,3 +133,6 @@ const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttuj
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+// 3.12: 6 tuntia
+// 3.13 
