@@ -1,16 +1,22 @@
-GET http://localhost:3001/api/persons/
-
-###
-
-DELETE http://localhost:3001/api/persons/1
-
+REST Client laajennus
 ###
 
 GET http://localhost:3001/api/persons/
 
 ###
 
-GET http://localhost:3001/api/persons/4
+DELETE http://localhost:3001/api/persons/6a2297782f05254889c9252c
+
+###
+
+GET http://localhost:3001/api/persons/
+
+###
+
+GET http://localhost:3001/api/persons/6a2296e57893ebcc5d66d83d
+
+###
+GET http://localhost:3001/info
 
 ###
 
@@ -18,10 +24,28 @@ POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-    "name": "Testi Henkilö",
+    "name": "Mikko Mallikas",
     "number": "040-123456"
 }
 
 ###
 
 GET http://localhost:3001/api/persons/
+
+3.16: malformatted id
+### 
+DELETE http://localhost:3001/api/persons/123
+
+3.16: unknown endpoint
+###
+GET http://localhost:3001/api/vääräosoite
+
+3.14 numeron muutos testi
+###
+PUT http://localhost:3001/api/persons/6a2138db9c7fefa4660e8692
+Content-Type: application/json
+
+{
+  "name": "Testi Henkilö",
+  "number": "050-123456"
+}
