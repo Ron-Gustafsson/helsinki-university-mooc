@@ -49,3 +49,21 @@ Content-Type: application/json
   "name": "Testi Henkilö",
   "number": "050-123456"
 }
+
+### 3.20 testi
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Testi Henkilö",
+  "number": "1234556"
+}
+
+### 3.20 
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Testi Oikea",
+  "number": "040-12345"
+}

@@ -17,8 +17,23 @@ mongoose.connect(url, { family: 4 })
   })
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minlength: 3,
+    required: true
+  },
+  number: {
+    type: String,
+    required: true,
+    minlength: [8, 'Phone number must be at least 8 characters long'],
+    validate: {
+      validator: function(value) {
+        //^ alusta asti, 2/3 numeroa, väliviiva, \d+ yksi tai useampi numero, $ loppuun asti
+        return /^\d{2,3}-\d+$/.test(value)
+      },
+      message: props => `${props.value} is not a valid phone number`
+    }
+  },
 })
 
 // Muutetaan MongoDB:n _id frontendille sopivaksi id-kentäksi

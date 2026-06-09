@@ -158,6 +158,11 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).send({
       error: 'malformatted id'
     })
+  } else if (error.name === 'ValidationError') {
+    // palautetaan mongoosen validointivirhe frontille
+    return response.status(400).json({
+       error: error.message
+    })
   }
   // muut virheet Expressille
   next(error)
@@ -171,3 +176,5 @@ const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttuj
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
+// osa3 D: 
