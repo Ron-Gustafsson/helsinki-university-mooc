@@ -2,17 +2,17 @@
 
 Backend Renderissä:
 
-// kaikki henkilöt
+kaikki henkilöt:
 https://phone-book-6jha.onrender.com/api/persons
 
-// yksittäinen henkilö id
+yksittäinen henkilö id:
 https://phone-book-6jha.onrender.com/api/persons/6a2138db9c7fefa4660e8692
 
-// info henkilömäärästä
+info henkilömäärästä:
 https://phone-book-6jha.onrender.com/info
 
-// väärä id
+väärä id:
 https://phone-book-6jha.onrender.com/api/persons/1
 
-// väärä osoite
+väärä osoite:
 https://phone-book-6jha.onrender.com/vikaa/osoitteessa
