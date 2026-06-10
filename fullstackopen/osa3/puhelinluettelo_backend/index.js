@@ -2,7 +2,7 @@ require('dotenv').config() // dotenv käyttöön -> mahdollistaa .env käytön i
 const express = require('express') // ottaa Express käyttöön
 const morgan = require('morgan') // ottaa morgan middlewaren käyttöön
 const Person = require('./models/person')
-const app = express() 
+const app = express()
 //const cors = require('cors') // tehtävä 3.9 step 9 otetaan cors käyttöön
 
 //app.use(cors()) // sallii pyynnöt eri portista
@@ -27,11 +27,11 @@ app.use(
 
 // 3.13: haetaan kaikki henkilöt MongoDB-tietokannasta
 app.get('/api/persons', (request, response, next) => {
-    Person.find({})
-      .then(persons => {
-        response.json(persons)
-      })
-      .catch(error => next(error))
+  Person.find({})
+    .then(persons => {
+      response.json(persons)
+    })
+    .catch(error => next(error))
 })
 
 // 3.18 muutoksen jälkeen hakee henkilöiden määrän mongodb-tietokannasta
@@ -64,7 +64,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 // 3.15: yksittäisen puhelintiedon poisto MongoDB-tietokannasta
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -99,7 +99,7 @@ app.post('/api/persons', (request, response, next) => {
     .then(savedPerson => {
       // palauttaa uuden henkilön
       response.status(201).json(savedPerson)
-      console.log("Henkilö tallennettu onnistuneesti")
+      console.log('Henkilö tallennettu onnistuneesti')
     })
     .catch(error => next(error))
 })
@@ -161,7 +161,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'ValidationError') {
     // palautetaan mongoosen validointivirhe frontille
     return response.status(400).json({
-       error: error.message
+      error: error.message
     })
   }
   // muut virheet Expressille
@@ -176,5 +176,3 @@ const PORT = process.env.PORT || 3001 // step 10: käyttöön ympäristömuuttuj
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-// osa3 D: 

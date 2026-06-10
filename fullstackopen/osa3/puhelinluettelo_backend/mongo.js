@@ -1,3 +1,4 @@
+// alun komentorivityökalu, person.js hoitaa mongodb-yhteyden
 const dns = require('node:dns')
 dns.setServers(['1.1.1.1', '8.8.8.8']) // koneeni käyttää paikallista dns serveriä [ '127.0.0.1' ], joten tämä ohittää sen
 const mongoose = require('mongoose')
@@ -43,7 +44,7 @@ mongoose.connect(url, { family: 4 })
         number: number,
       })
 
-      person.save().then(result => {
+      person.save().then(() => {
         console.log(`added ${name} number ${number} to phonebook`)
         mongoose.connection.close()
       })
