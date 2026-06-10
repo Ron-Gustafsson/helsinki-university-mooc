@@ -1,7 +1,5 @@
 # Puhelinluettelo
 
-Backend Renderissä:
-
 Sovellus:
 https://phone-book-6jha.onrender.com/
 
