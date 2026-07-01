@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/6a3ba4720c347560ce426cd3
+Content-Type: application/json
+
+{
+  "title": "Näin backendia testataan",
+  "author": "Ron Gustafsson",
+  "url": "http://www.backendtest.com",
+  "likes": 101
+}

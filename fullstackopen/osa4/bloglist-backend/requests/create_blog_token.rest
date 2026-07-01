@@ -1,0 +1,38 @@
+
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvbkd1IiwiaWQiOiI2YTNjZWU0N2UwNDk3YjVmZTg2YTNmMzgiLCJpYXQiOjE3ODI3MjQ1MTQsImV4cCI6MTc4MjcyODExNH0.AyyM0gN58S3ImXezGFR6g7wYvoJQe_Ij2qnaqMqT3bw
+
+{
+  "title": "Tokenilla lisätty blogi",
+  "author": "Ron Gustafsson",
+  "url": "https://example.com",
+  "likes": 10
+}
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvbkd1IiwiaWQiOiI2YTNjZWU0N2UwNDk3YjVmZTg2YTNmMzgiLCJpYXQiOjE3ODI3MjQ1MTQsImV4cCI6MTc4MjcyODExNH0.AyyM0gN58S3ImXezGFR6g7wYvoJQe_Ij2qnaqMqT3bw
+
+{
+  "title": "Token middleware toimii",
+  "author": "Ron Gustafsson",
+  "url": "https://example.com",
+  "likes": 10
+}
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJvbkd1IiwiaWQiOiI2YTNjZWU0N2UwNDk3YjVmZTg2YTNmMzgiLCJpYXQiOjE3ODI3MzY1NTB9.P12v1DQaAn6DZWfs5Wzh9PP9mqWqoCR-zlZkDeo8_D0
+
+{
+  "title": "Poistettava blogi",
+  "author": "Ron Gustafsson",
+  "url": "https://example.com",
+  "likes": 10
+}
