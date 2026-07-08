@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-size: large;
+}
+
+.success {
+  color: green;
+  background: lightgrey;
+  font-size: 20px;
+  font-weight: bold;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  background: lightgrey;
+  font-size: 20px;
+  font-weight: bold;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* blogien view tyylittely */
+.blog {
+  padding: 5px 8px 5px 4px;
+  border: 1px solid black;
+  margin-bottom: 5px;
+  width: fit-content;
+  max-width: 80%;
+  overflow-wrap: break-word;
+}
+
+.blog button {
+  margin-left: 5px;
+}

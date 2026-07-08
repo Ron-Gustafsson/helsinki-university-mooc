@@ -1,9 +1,9 @@
-PUT http://localhost:3003/api/blogs/6a3ba4720c347560ce426cd3
+PUT http://localhost:3003/api/blogs/6a4b935552641abad009ee6e
 Content-Type: application/json
 
 {
-  "title": "Näin backendia testataan",
+  "title": "Tehtävät 5.5 ja 5.6 toimivat",
   "author": "Ron Gustafsson",
-  "url": "http://www.backendtest.com",
-  "likes": 101
+  "url": "http://www.testi.com",
+  "likes": 1
 }
