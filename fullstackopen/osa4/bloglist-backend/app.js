@@ -32,6 +32,12 @@ app.use('/api/blogs', blogsRouter) // Blogien reitit
 app.use('/api/users', usersRouter) // Käyttäjien reitit
 app.use('/api/login', loginRouter) // Token perusteinen kirjautuminen
 
+// Testitietokannan tyhjennysreitti otetaan käyttöön vain testitilassa
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 

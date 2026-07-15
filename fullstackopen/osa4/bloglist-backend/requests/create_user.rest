@@ -16,3 +16,14 @@ Content-Type: application/json
   "name": "Testi Käyttäjä",
   "password": "salasana"
 }
+
+###
+
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "username": "Ron Testi",
+  "name": "Ron Gustafsson",
+  "password": "salasana"
+}
