@@ -4,7 +4,7 @@ const Notification = ({ message, type }) => {
     return null
   }
 
-  // type on joko 'success' tai 'error'
+  // type on joko 'success' tai 'error' {type}
   return (
     <div className={type}>
       {message}

@@ -79,3 +79,5 @@ describe('<Blog />', () => {
     expect(mockHandler.mock.calls).toHaveLength(2) // tarkistetaan että mockkia klikattiin 2 kertaa
   })
 })
+
+// Testauskattavuus: npm test -- --coverage
