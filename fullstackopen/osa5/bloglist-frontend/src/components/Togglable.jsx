@@ -1,4 +1,5 @@
 // Komponentin toiminta näyttää ensin nappi, kun nappia painetaan, näyttää sisältö, näyttää cancel-nappi, cancel piilottaa sisällön uudestaan
+// Komponentin käyttö loppui tehtävässä 5.26 -> jätän sen kumminkin vielä toistaiseksi tänne
 import { useImperativeHandle, useState, forwardRef } from 'react'
 
 const Togglable = forwardRef((props, refs) => {

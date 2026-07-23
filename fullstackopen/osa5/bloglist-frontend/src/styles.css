@@ -29,14 +29,5 @@ body {
 
 /* blogien view tyylittely */
 .blog {
-  padding: 5px 8px 5px 4px;
-  border: 1px solid black;
-  margin-bottom: 5px;
-  width: fit-content;
-  max-width: 80%;
   overflow-wrap: break-word;
-}
-
-.blog button {
-  margin-left: 5px;
 }

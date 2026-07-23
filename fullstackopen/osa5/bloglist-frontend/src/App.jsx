@@ -1,11 +1,15 @@
-import { useState, useEffect, useRef } from 'react' // 5.5 lisätty useRef
+// Muistiin kun näitäkään ikinä muista: Tiedosto sisältää JavaScriptiä ja JSX:ää.
+// JavaScript hoitaa sovelluksen logiikan ja JSX määrittelee käyttöliittymän.
+
+import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import BlogList from './components/BlogList' // 5.25 näyttää blogit linkkeinä
+import { Routes, Route, Link, useNavigate, useMatch } from 'react-router-dom' // React router importit -> Router on main.jsx
 import blogService from './services/blogs'
 import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm' // blogin lisäys
-import Togglable from './components/Togglable' // create new blog-napin toiminta
 import './styles.css'
 
 const App = () => {
@@ -18,8 +22,16 @@ const App = () => {
   const [notificationMessage, setNotificationMessage] = useState(null)
   const [notificationType, setNotificationType] = useState('success')
 
-  // Viite Togglable-komponenttiin
-  const blogFormRef = useRef()
+  // Mahdollistaa siirtymisen toiseen reittiin
+  const navigate = useNavigate()
+
+  // Tarkistetaan vastaako osoite yksittäisen blogin url
+  const match = useMatch('blogs/:id')
+
+  // Etsitään url-osoitteen id:tä vastaava blogi
+  const blog = match
+    ? blogs.find(blog => blog.id === match.params.id)
+    : null
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -79,6 +91,9 @@ const App = () => {
       setUsername('')
       setPassword('')
 
+      //  Siirrytään kirjautumisen jälkeen blogilistaan
+      navigate('/')
+
     } catch {
       showErrorMessage('wrong username or password') // Näytetään virheilmoitus
     }
@@ -101,6 +116,9 @@ const App = () => {
 
     // Palautetaan sovellus kirjautumattomaan tilaan
     setUser(null)
+
+    // Näytetään uloskirjatumisen jälkeen blogilista
+    navigate('/')
   }
 
   const createBlog = async blogObject => {
@@ -122,15 +140,15 @@ const App = () => {
       //Lisätään backendin palauttama blogi nykyiseen blogilistaan
       setBlogs(blogs.concat(blogWithUser))
 
-      // Suljetaan blogin luontilomake onnistuneen lisäyksen jälkeen
-      blogFormRef.current.toggleVisibility()
-
       showSuccessMessage(
         `a new blog ${blogWithUser.title} by ${blogWithUser.author} added`
       )
     } catch {
       showErrorMessage('blog creation failed') //Käyttäjälle virheilmoitus
     }
+
+    // Siirrytään onnistuneen luonnin jälkeen blogilistaan
+    navigate('/')
   }
 
   //5.8: like painikkeen toiminnallisuus
@@ -175,60 +193,86 @@ const App = () => {
 
       // poistetaan blogi frotendin tilasta
       setBlogs(blogs.filter(blogInList => blogInList.id !== blog.id))
+
+      // Siirrytään poiston jälkeen blogilistaan
+      navigate('/')
     } catch {
       showErrorMessage('blog removal fail')
     }
   }
 
-  // Jos käyttäjä ei ole kirjautunut
-  if (user === null) {
-    return (
-      <div>
-        <h2>Log in to application</h2>
-
-        <Notification
-          message={notificationMessage}
-          type={notificationType}
-        />
-
-        <LoginForm
-          username={username}
-          password={password}
-          handleUsernameChange={handleUsernameChange}
-          handlePasswordChange={handlePasswordChange}
-          handleLogin={handleLogin}
-        />
-      </div>
-    )
-  }
-
   return (
     <div>
-      <h2>blogs</h2>
+      {/* Navigaatio näkyy kaikissa näkymissä */}
+      <div>
+        <Link to="/">blogs</Link>{' '}
+
+        {user === null ? (
+          // Tämä suoritetaan jos ei ole kirjautunut
+          <Link to="/login">login</Link>
+        ) : (
+          // Tämä suoritetaan jos on kirjautunut
+          <span>
+
+            {/* Linkki uuden blogin luontiin */}
+            <Link to='/create'>new blog</Link>{' '}
+
+            <button onClick={handleLogout}>logout</button>
+          </span>
+        )}
+      </div>
 
       <Notification
         message={notificationMessage}
         type={notificationType}
       />
 
-      <p>
-        <b>{user.name}</b> logged in <button onClick={handleLogout}>logout</button>
-      </p>
+      <Routes>
+        {/* Kirjautumisnäkymä */}
+        <Route
+          path="/login"
+          element={
+            <div>
+              <h2>Log in to application</h2>
 
-      <Togglable buttonLabel="create new blog" ref={blogFormRef}>
-        <BlogForm createBlog={createBlog} />
-      </Togglable>
-      <br/>
-
-      {blogsByLikes.map(blog =>
-        <Blog
-          key={blog.id}
-          blog={blog}
-          handleLike={handleLike}
-          handleRemoveBlog={handleRemoveBlog}
-          user={user} /* Tämä tarvitaan, jotta blog.jsx voi tarkistaa onko blogi kirjautuneen käyttäjän lisäämä */
+              <LoginForm
+                username={username}
+                password={password}
+                handleUsernameChange={handleUsernameChange}
+                handlePasswordChange={handlePasswordChange}
+                handleLogin={handleLogin}
+              />
+            </div>
+          }
         />
-      )}
+
+        {/* Uuden blokin luonti näkymä */}
+        <Route
+          path='/create'
+          element={<BlogForm createBlog={createBlog} />}
+        />
+
+        {/* Yksittäisen blogin näkymän */}
+        <Route
+          path='/blogs/:id'
+          element={
+            <Blog
+              blog={blog}
+              handleLike={handleLike}
+              handleRemoveBlog={handleRemoveBlog}
+              user={user}
+            />
+          }
+        />
+
+        {/* Kaikkien blogien näkymä */}
+        <Route
+          path="/"
+          element={
+            <BlogList blogs={blogsByLikes} />
+          }
+        />
+      </Routes>
     </div>
   )
 }

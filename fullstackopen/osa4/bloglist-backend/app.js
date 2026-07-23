@@ -1,4 +1,4 @@
-// muodostaa sovelluksen ja tietokantayhteyden
+// App muodostaa sovelluksen ja tietokantayhteyden
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./utils/config')

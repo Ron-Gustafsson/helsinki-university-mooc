@@ -1,46 +1,53 @@
-// Yksittäisen blogin näyttävä komponentti
-import { useState } from 'react'
-
+// Näyttää yhden blogin kaikki tiedot omalla sivullaan
 const Blog = ({ blog, handleLike, handleRemoveBlog, user }) => {
-  // Kontrolloi näytetäänkö blogin lisätiedot
-  const [showDetails, setShowDetails] = useState(false)
-
-  // Vaihtaa lisätiedot näkyviin/piiloon
-  const toggleDetails = () => {
-    setShowDetails(!showDetails)
+  // Jos blogia ei ole vielä ladattu backendista
+  if (!blog) {
+    return null
   }
 
-  //Poistonappi näytetään vain blogin lisänneelle käyttäjälle
-  const showRemoveButton = blog.user?.username === user.username
+  //Poistonappi näytetään vain kirjautuneelle blogin luojalle
+  const showRemoveButton = user && blog.user?.username === user.username
 
   return (
     <div className="blog">
+      {/* Blogin otsikko ja kirjoittaja */}
+      <h2>
+        {blog.author}: {blog.title}
+      </h2>
+
+      {/* Blogin verkkosivu */}
       <div>
-        {blog.title} {blog.author}
-        <button type='button' onClick={toggleDetails}>
-          {showDetails ? 'hide' : 'view'}
-        </button>
+        <a href={blog.url} target="_blank" rel="noreferrer">
+          {blog.url}
+        </a>
       </div>
 
-      {showDetails && (
-        <div>
-          <div>{blog.url}</div>
+      {/* Tykkäysten määrä */}
+      <div>
+        likes {blog.likes} {' '}
 
-          <div>
-            likes {blog.likes}
-            <button type='button' onClick={() => handleLike(blog)}>
-              like
-            </button>
-          </div>
+        { /* vain kirjautunut käyttäjä voi tykätä */}
+        {user && (
+          <button
+            type= 'button'
+            onClick={() => handleLike(blog)}
+          >
+            like
+          </button>
+        )}
+      </div>
 
-          <div>{blog.user?.name}</div>
+      {/* Blogin lisännyt käyttäjä */}
+      <div>added by {blog.user?.name}</div>
 
-          {showRemoveButton && (
-            <button type='button' onClick={() => handleRemoveBlog(blog)}>
-              remove
-            </button>
-          )}
-        </div>
+      {/* Vain blogin lisääjä voi poistaa blogin */}
+      {showRemoveButton && (
+        <button
+          type="button"
+          onClick={() => handleRemoveBlog(blog)}
+        >
+          remove
+        </button>
       )}
     </div>
   )
