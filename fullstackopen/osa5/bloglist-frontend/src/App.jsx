@@ -11,6 +11,7 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import BlogForm from './components/BlogForm' // blogin lisäys
 import './styles.css'
+import { AppBar, Button, Container, Toolbar, Typography } from '@mui/material' // React-kirjasto MaterialUI: npm install @mui/material @emotion/react @emotion/styled https://fullstackopen.com/osa5/react_router_tyylikirjastot#tehtavat-5-29-5-31
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -32,6 +33,11 @@ const App = () => {
   const blog = match
     ? blogs.find(blog => blog.id === match.params.id)
     : null
+
+  //5.30: Navigaation hover tyylittely
+  const navigationButtonStyle = {
+    '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' }
+  }
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -73,7 +79,7 @@ const App = () => {
 
   const handleLogin = async event => {
     event.preventDefault() // Estää lomakkeen oletustoiminnon eli uudelleen latauksen
-    console.log('logging in with', username, password) // Muista poistaa ennen github push
+    console.log('logging in with', username) // Muista poistaa ennen github push
 
     try {
       const user = await loginService.login({ username, password })
@@ -202,25 +208,59 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Container>
       {/* Navigaatio näkyy kaikissa näkymissä */}
-      <div>
-        <Link to="/">blogs</Link>{' '}
+      <AppBar position='static'>
+        <Toolbar>
+          {/* Sovelluksen nimi */}
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            Blog App
+          </Typography>
 
-        {user === null ? (
-          // Tämä suoritetaan jos ei ole kirjautunut
-          <Link to="/login">login</Link>
-        ) : (
-          // Tämä suoritetaan jos on kirjautunut
-          <span>
+          {/* Vie kaikkienb blogien näkymään */}
+          <Button
+            color='inherit'
+            component={Link}
+            to='/'
+            sx={navigationButtonStyle}
+          >
+            blogs
+          </Button>
 
-            {/* Linkki uuden blogin luontiin */}
-            <Link to='/create'>new blog</Link>{' '}
+          {user === null ? (
+            // Tämä suoritetaan jos ei ole kirjautunut
+            <Button
+              color='inherit'
+              component={Link}
+              to='/login'
+              sx={navigationButtonStyle}
+            >
+              login
+            </Button>
+          ) : (
+            // Tämä suoritetaan jos on kirjautunut
+            <>
+              {/* Linkki uuden blogin luontiin */}
+              <Button
+                color='inherit'
+                component={Link}
+                to='/create'
+                sx={navigationButtonStyle}
+              >
+                new blog
+              </Button>
 
-            <button onClick={handleLogout}>logout</button>
-          </span>
-        )}
-      </div>
+              <Button
+                color='inherit'
+                onClick={handleLogout}
+                sx={navigationButtonStyle}
+              >
+                logout
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
 
       <Notification
         message={notificationMessage}
@@ -273,7 +313,7 @@ const App = () => {
           }
         />
       </Routes>
-    </div>
+    </Container>
   )
 }
 

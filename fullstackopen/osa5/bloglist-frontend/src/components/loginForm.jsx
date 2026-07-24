@@ -1,4 +1,6 @@
 // Kirjautumis lomakkeen komponentti
+import { TextField, Button } from '@mui/material'
+
 const LoginForm = ({
   username,
   password,
@@ -9,30 +11,36 @@ const LoginForm = ({
   return (
     <form onSubmit={handleLogin}>
       <div>
-        <label>
-          username:
-          <input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder="enter your username"
-          />
-        </label>
+        <TextField
+          label='username'
+          type="text"
+          value={username}
+          onChange={handleUsernameChange}
+          placeholder="enter your username"
+          size='small'
+          sx={{ width: 220, mb: 1 }}
+        />
       </div>
 
       <div>
-        <label>
-          password:
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder="enter your password"
-          />
-        </label>
+        <TextField
+          label='password'
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder="enter your password"
+          size='small'
+          sx={{ width: 220 }}
+        />
       </div>
 
-      <button type="submit">login</button>
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ mt: 1 }}
+      >
+          login
+      </Button>
     </form>
   )
 }

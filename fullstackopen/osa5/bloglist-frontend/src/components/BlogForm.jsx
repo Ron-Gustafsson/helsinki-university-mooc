@@ -1,5 +1,6 @@
 // Komponentti vastaa uuden blogin luontilomakkeesta
 import { useState } from 'react'
+import { TextField, Button } from '@mui/material'
 
 const BlogForm = ({ createBlog }) => {
 
@@ -30,44 +31,48 @@ const BlogForm = ({ createBlog }) => {
 
       <form onSubmit={addBlog}>
         <div>
-          <label>
-            title:
-            <input
-              name='title'
-              value={title}
-              onChange={({ target }) => setTitle(target.value)}
-              placeholder='enter the blog title'
-            />
-          </label>
+          <TextField
+            label='title'
+            name='title'
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+            placeholder='enter the blog title'
+            size='small'
+            sx={{ width: 250, mb: 1 }}
+          />
         </div>
 
         <div>
-          <label>
-            author:
-            <input
-              name='author'
-              value={author}
-              onChange={({ target }) => setAuthor(target.value)}
-              placeholder='enter the blog writer'
-            />
-          </label>
+          <TextField
+            label='author'
+            name='author'
+            value={author}
+            onChange={({ target }) => setAuthor(target.value)}
+            placeholder='enter the blog author'
+            size='small'
+            sx={{ width: 250, mb: 1 }}
+          />
         </div>
 
         <div>
-          <label>
-            url:
-            <input
-              name='url'
-              value={url}
-              onChange={({ target }) => setUrl(target.value)}
-              placeholder='enter the blog website'
-            />
-          </label>
+          <TextField
+            label='url'
+            name='url'
+            value={url}
+            onChange={({ target }) => setUrl(target.value)}
+            placeholder='enter the blog website'
+            size='small'
+            sx={{ width: 250 }}
+          />
         </div>
 
-        <br/>
-        <button type="submit">create</button>
-        <br/>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ mt: 1 }}
+        >
+            create
+        </Button>
       </form>
     </div>
   )
